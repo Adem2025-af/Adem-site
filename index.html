@@ -29,6 +29,17 @@
         .day-btn { transition: 0.2s; border: 1px solid #262626; }
         .day-btn:hover { border-color: #f59e0b; color: #f59e0b; }
         .active-day { background: #f59e0b !important; color: black !important; font-weight: bold; border-color: #f59e0b; }
+        /* Style spécifique pour la grille d'exercices avec la nouvelle image bras insérée */
+        .legs-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 1.5rem;
+        }
+        @media (min-width: 768px) {
+            .legs-grid {
+                grid-template-columns: repeat(3, minmax(0, 1fr));
+            }
+        }
     </style>
 </head>
 <body class="font-sans">
@@ -39,6 +50,7 @@
             <div class="hidden md:flex space-x-8">
                 <a href="#nutrition" class="text-sm font-bold hover:text-gold-400">NUTRITION</a>
                 <a href="#workouts" class="text-sm font-bold hover:text-gold-400">ENTRAÎNEMENT</a>
+                <a href="#bras-ppl" class="text-sm font-bold hover:text-gold-400">BRAS</a>
             </div>
         </div>
     </nav>
@@ -97,19 +109,21 @@
     </section>
 
     <section id="workouts" class="py-16 px-4 bg-dark-900 border-y border-white/5">
-        <div class="max-w-6xl mx-auto">
-            <h2 class="text-4xl font-title text-center mb-12 text-gold-500">Programmes</h2>
+        <div class="max-w-7xl mx-auto space-y-16">
+            <h2 class="text-4xl font-title text-center mb-12 text-gold-500">Programmes d'Entraînement</h2>
+            
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
                 <div class="card-gold p-8 rounded-3xl">
-                    <h3 class="text-2xl font-bold mb-6 border-b border-gold-500/20 pb-2 uppercase">PPL (Push/Pull/Legs)</h3>
+                    <h3 class="text-2xl font-bold mb-6 border-b border-gold-500/20 pb-2 uppercase text-center">PPL (Push/Pull/Legs)</h3>
                     <div class="space-y-6">
-                        <div><p class="text-gold-500 font-bold uppercase">Push</p><img src="push.jpg" class="exercise-img" alt="Push"></div>
-                        <div><p class="text-gold-500 font-bold uppercase">Pull</p><img src="pull.jpg" class="exercise-img" alt="Pull"></div>
-                        <div><p class="text-gold-500 font-bold uppercase">Legs</p><img src="legs.jpg" class="exercise-img" alt="Legs"></div>
+                        <div><p class="text-gold-500 font-bold uppercase text-center">Push (Pecs/Épaules)</p><img src="push.jpg" class="exercise-img" alt="Push"></div>
+                        <div><p class="text-gold-500 font-bold uppercase text-center">Pull (Dos)</p><img src="pull.jpg" class="exercise-img" alt="Pull"></div>
+                        <div><p class="text-gold-500 font-bold uppercase text-center">Legs (Jambes)</p><img src="legs.jpg" class="exercise-img" alt="Legs"></div>
                     </div>
                 </div>
+
                 <div class="card-gold p-8 rounded-3xl">
-                    <h3 class="text-2xl font-bold mb-6 border-b border-gold-500/20 pb-2 uppercase">Split 5 Jours</h3>
+                    <h3 class="text-2xl font-bold mb-6 border-b border-gold-500/20 pb-2 uppercase text-center">Split 5 Jours Classic</h3>
                     <div class="grid grid-cols-1 gap-6 text-center">
                         <div><p class="text-gold-500 font-bold">PECTORAUX</p><img src="pecs.jpg" class="exercise-img" alt="Pecs"></div>
                         <div><p class="text-gold-500 font-bold">DOS</p><img src="dos.jpg" class="exercise-img" alt="Dos"></div>
@@ -118,8 +132,28 @@
                     </div>
                 </div>
             </div>
+
+            <div id="bras-ppl" class="card-gold p-8 rounded-3xl border border-gold-500/50 pt-16 mt-16">
+                <h3 class="text-2xl font-bold mb-6 border-b border-gold-500/20 pb-2 uppercase text-center text-white">Séance Bras (Biceps/Triceps) - Spécial PPL</h3>
+                <img src="bras.jpg" class="exercise-img mb-10" alt="Bras">
+                
+                <p class="text-gold-500 font-bold uppercase text-center border-t border-gold-500/20 pt-8 mb-6">Grille de Séance Jambes Complète</p>
+                <div class="legs-grid">
+                    <div><p class="text-white font-bold text-lg mb-2 text-center">1. Squat</p><img src="legs-ex1.jpg" class="exercise-img" alt="Ex1"></div>
+                    <div><p class="text-white font-bold text-lg mb-2 text-center">2. Soulevé de terre</p><img src="legs-ex2.jpg" class="exercise-img" alt="Ex2"></div>
+                    <div><p class="text-white font-bold text-lg mb-2 text-center">3. Fentes</p><img src="legs-ex3.jpg" class="exercise-img" alt="Ex3"></div>
+                    <div><p class="text-white font-bold text-lg mb-2 text-center">4. Presse à jambes</p><img src="legs-ex4.jpg" class="exercise-img" alt="Ex4"></div>
+                    <div><p class="text-white font-bold text-lg mb-2 text-center">5. Leg Curl</p><img src="legs-ex5.jpg" class="exercise-img" alt="Ex5"></div>
+                    <div><p class="text-white font-bold text-lg mb-2 text-center">6. Mollets</p><img src="legs-ex6.jpg" class="exercise-img" alt="Ex6"></div>
+                </div>
+            </div>
+
         </div>
     </section>
+
+    <footer class="py-12 text-center text-gray-600 border-t border-white/5 bg-black mt-20">
+        <p class="font-title text-sm tracking-widest text-gold-600">© 2026 BOURABAH GYM • DISCIPLINE OVER MOTIVATION</p>
+    </footer>
 
     <script>
         let currentCategory = '';
@@ -127,8 +161,8 @@
         
         const diets = {
             masse: [
-                { b: "120g Avoine + 4 Oeufs entiers", l: "150g Riz + 200g Poulet + Brocolis", d: "150g Pâtes + 150g Viande hachée" },
-                { b: "Porridge Banane + 4 Oeufs", l: "150g Riz + Steak 5% + Huile d'olive", d: "Lentilles + Pain complet + Fromage" },
+                { b: "120g Avoine + 4 Oeufs entiers", l: "150g Riz + 200g Poulet + Brocolis", d: "150g Pâtes + 150g Viande hachée 5%" },
+                { b: "Porridge Banane + 4 Oeufs", l: "150g Riz + Steak 5% + Huile olive", d: "Lentilles + Pain complet + Fromage" },
                 { b: "Avoine au Miel + 4 Oeufs", l: "Couscous complet + Poulet + Légumes", d: "Riz + 2 Boîtes de Sardines" },
                 { b: "4 Oeufs + Tartines Beurre Cacahuète", l: "Loubia (Haricots) + Salade", d: "Pâtes + Escalope de dinde" },
                 { b: "Avoine au Lait + 4 Oeufs", l: "150g Riz + Poisson blanc + Huile olive", d: "Omelette 4 oeufs + Avocat" },
