@@ -24,9 +24,11 @@
         body { background-color: #050505; color: #f3f4f6; }
         .gold-gradient { background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%); }
         .card-gold { background: #111; border: 1px solid #262626; transition: 0.3s; }
-        .card-gold:hover { border-color: #f59e0b; box-shadow: 0 0 15px rgba(245, 158, 11, 0.1); }
         .exercise-img { width: 100%; border-radius: 12px; border: 2px solid #f59e0b; margin-top: 10px; }
         .hidden { display: none !important; }
+        .day-btn { transition: 0.2s; border: 1px solid #262626; }
+        .day-btn:hover { border-color: #f59e0b; color: #f59e0b; }
+        .active-day { background: #f59e0b !important; color: black !important; font-weight: bold; border-color: #f59e0b; }
     </style>
 </head>
 <body class="font-sans">
@@ -35,164 +37,150 @@
         <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
             <h1 class="text-2xl font-title font-bold text-gold-500 tracking-tighter">BOURABAH GYM</h1>
             <div class="hidden md:flex space-x-8">
-                <a href="#nutrition" class="text-sm font-bold hover:text-gold-400 transition">NUTRITION</a>
-                <a href="#workouts" class="text-sm font-bold hover:text-gold-400 transition">ENTRAÎNEMENT</a>
-                <a href="#bmi" class="text-sm font-bold hover:text-gold-400 transition">IMC</a>
+                <a href="#nutrition" class="text-sm font-bold hover:text-gold-400">NUTRITION</a>
+                <a href="#workouts" class="text-sm font-bold hover:text-gold-400">ENTRAÎNEMENT</a>
             </div>
         </div>
     </nav>
 
-    <header class="py-24 text-center px-4 relative overflow-hidden">
-        <div class="absolute inset-0 opacity-10" style="background-image: radial-gradient(#f59e0b 1px, transparent 1px); background-size: 20px 20px;"></div>
-        <h2 class="text-6xl md:text-8xl font-title font-bold text-white mb-4 italic">BOURABAH <span class="text-gold-500">GYM</span></h2>
-        <p class="text-gray-400 max-w-2xl mx-auto text-lg">La science de la musculation au service de votre transformation.</p>
-    </header>
-
-    <section id="nutrition" class="py-16 px-4 max-w-7xl mx-auto">
-        <h2 class="text-4xl font-title text-center mb-12 uppercase text-gold-500">Programmes Nutritionnels</h2>
+    <section id="nutrition" class="py-16 px-4 max-w-5xl mx-auto">
+        <h2 class="text-4xl font-title text-center mb-12 uppercase text-gold-500 italic">Programmes Stratégiques</h2>
         
-        <div class="flex justify-center gap-4 mb-12 flex-wrap">
-            <button onclick="switchTab('masse')" id="btn-masse" class="px-8 py-4 rounded-xl gold-gradient font-bold text-black shadow-lg">PRISE DE MASSE (7 JOURS)</button>
-            <button onclick="switchTab('seche')" id="btn-seche" class="px-8 py-4 rounded-xl bg-dark-700 border border-gold-500/50 font-bold hover:bg-gold-500 hover:text-black transition">SÈCHE ÉCO (7 JOURS)</button>
-            <button onclick="switchTab('recettes')" id="btn-recettes" class="px-8 py-4 rounded-xl bg-dark-700 border border-gold-500/50 font-bold hover:bg-gold-500 hover:text-black transition">10 RECETTES FIT</button>
+        <div class="flex justify-center gap-4 mb-8 flex-wrap">
+            <button onclick="selectCategory('masse')" id="cat-masse" class="px-6 py-4 rounded-xl font-bold border border-gold-500/50 hover:bg-gold-500 hover:text-black transition uppercase">Prise de Masse</button>
+            <button onclick="selectCategory('seche')" id="cat-seche" class="px-6 py-4 rounded-xl font-bold border border-gold-500/50 hover:bg-gold-500 hover:text-black transition uppercase">Sèche Éco</button>
+            <button onclick="selectCategory('recettes')" id="cat-recettes" class="px-6 py-4 rounded-xl font-bold border border-gold-500/50 hover:bg-gold-500 hover:text-black transition uppercase">10 Recettes</button>
         </div>
 
-        <div id="tab-masse" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-            <div class="card-gold p-5 rounded-xl"><h4 class="text-gold-500 font-bold underline">Lundi</h4><p class="text-sm">Avoine/4 Oeufs • 150g Riz/Poulet • Lentilles/Pain complet</p></div>
-            <div class="card-gold p-5 rounded-xl"><h4 class="text-gold-500 font-bold underline">Mardi</h4><p class="text-sm">Porridge Banane • 150g Pâtes/Viande hachée • 4 Oeufs/Pdt</p></div>
-            <div class="card-gold p-5 rounded-xl"><h4 class="text-gold-500 font-bold underline">Mercredi</h4><p class="text-sm">Avoine/Miel • Couscous légumes/Poulet • Riz/2 Sardines</p></div>
-            <div class="card-gold p-5 rounded-xl"><h4 class="text-gold-500 font-bold underline">Jeudi</h4><p class="text-sm">4 Oeufs/Beurre cacahuète • Loubia (Haricots) • Pâtes/Dinde</p></div>
-            <div class="card-gold p-5 rounded-xl"><h4 class="text-gold-500 font-bold underline">Vendredi</h4><p class="text-sm">Avoine/Lait • Riz/Poisson blanc • Omelette/Salade</p></div>
-            <div class="card-gold p-5 rounded-xl"><h4 class="text-gold-500 font-bold underline">Samedi</h4><p class="text-sm">Pancakes Avoine • Burger Maison Fit • Riz/Lentilles</p></div>
-            <div class="card-gold p-5 rounded-xl"><h4 class="text-gold-500 font-bold underline">Dimanche</h4><p class="text-sm">Brunch Oeufs/Avocat • Repas libre modéré • Poulet/Légumes</p></div>
-            <div class="card-gold p-5 rounded-xl bg-gold-500/10"><h4 class="text-gold-500 font-bold italic">Note</h4><p class="text-xs text-gold-400">Buvez 3L d'eau par jour minimum.</p></div>
+        <div id="day-selector" class="hidden flex justify-center gap-2 mb-10 flex-wrap border-t border-white/5 pt-8">
+            <button onclick="showDayMenu(0)" class="day-btn bg-dark-700 px-4 py-2 rounded-lg text-sm">Lun</button>
+            <button onclick="showDayMenu(1)" class="day-btn bg-dark-700 px-4 py-2 rounded-lg text-sm">Mar</button>
+            <button onclick="showDayMenu(2)" class="day-btn bg-dark-700 px-4 py-2 rounded-lg text-sm">Mer</button>
+            <button onclick="showDayMenu(3)" class="day-btn bg-dark-700 px-4 py-2 rounded-lg text-sm">Jeu</button>
+            <button onclick="showDayMenu(4)" class="day-btn bg-dark-700 px-4 py-2 rounded-lg text-sm">Ven</button>
+            <button onclick="showDayMenu(5)" class="day-btn bg-dark-700 px-4 py-2 rounded-lg text-sm">Sam</button>
+            <button onclick="showDayMenu(6)" class="day-btn bg-dark-700 px-4 py-2 rounded-lg text-sm">Dim</button>
         </div>
 
-        <div id="tab-seche" class="hidden grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-            <div class="card-gold p-5 rounded-xl"><h4 class="text-gray-400 font-bold underline">Lundi</h4><p class="text-sm">3 Oeufs • 60g Riz/Blanc poulet • Salade verte géante</p></div>
-            <div class="card-gold p-5 rounded-xl"><h4 class="text-gray-400 font-bold underline">Mardi</h4><p class="text-sm">60g Avoine/Eau • Poisson vapeur • Courgettes</p></div>
-            <div class="card-gold p-5 rounded-xl"><h4 class="text-gray-400 font-bold underline">Mercredi</h4><p class="text-sm">Omelette épinards • 100g Lentilles • Fromage blanc 0%</p></div>
-            <div class="card-gold p-5 rounded-xl"><h4 class="text-gray-400 font-bold underline">Jeudi</h4><p class="text-sm">Thon naturel/Salade • 150g Dinde • Brocolis</p></div>
-            <div class="card-gold p-5 rounded-xl"><h4 class="text-gray-400 font-bold underline">Vendredi</h4><p class="text-sm">2 Oeufs • Soupe de légumes maison • Blanc de dinde</p></div>
-            <div class="card-gold p-5 rounded-xl"><h4 class="text-gray-400 font-bold underline">Samedi</h4><p class="text-sm">60g Riz/Salade • Steak 5% • Haricots verts</p></div>
-            <div class="card-gold p-5 rounded-xl"><h4 class="text-gray-400 font-bold underline">Dimanche</h4><p class="text-sm">3 Oeufs • Poulet grillé • Thé vert sans sucre</p></div>
+        <div id="menu-display" class="hidden max-w-2xl mx-auto">
+            <div class="card-gold p-8 rounded-3xl relative overflow-hidden">
+                <div class="absolute top-0 right-0 gold-gradient px-4 py-1 text-black font-bold text-xs uppercase" id="display-day-name">Lundi</div>
+                <div class="space-y-6 mt-4">
+                    <div>
+                        <h4 class="text-gold-500 font-bold uppercase text-sm tracking-widest flex items-center">☀️ Petit-Déjeuner</h4>
+                        <p id="breakfast-text" class="text-lg text-gray-200 mt-1"></p>
+                    </div>
+                    <div class="border-t border-white/5 pt-4">
+                        <h4 class="text-gold-500 font-bold uppercase text-sm tracking-widest flex items-center">🍴 Déjeuner</h4>
+                        <p id="lunch-text" class="text-lg text-gray-200 mt-1"></p>
+                    </div>
+                    <div class="border-t border-white/5 pt-4">
+                        <h4 class="text-gold-500 font-bold uppercase text-sm tracking-widest flex items-center">🌙 Dîner</h4>
+                        <p id="dinner-text" class="text-lg text-gray-200 mt-1"></p>
+                    </div>
+                </div>
+            </div>
         </div>
 
-        <div id="tab-recettes" class="hidden grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            <div class="card-gold p-6 rounded-2xl">
-                <h3 class="text-gold-500 font-bold mb-2">1. Le Porridge Bourabah</h3>
-                <p class="text-xs text-gray-400 italic">120g avoine, 4 oeufs, 1 banane, 20g beurre cacahuète.</p>
-            </div>
-            <div class="card-gold p-6 rounded-2xl">
-                <h3 class="text-gold-500 font-bold mb-2">2. L'Omelette Éco</h3>
-                <p class="text-xs text-gray-400 italic">3 oeufs, oignons, tomates, un peu de fromage de brebis.</p>
-            </div>
-            <div class="card-gold p-6 rounded-2xl">
-                <h3 class="text-gold-500 font-bold mb-2">3. Riz-Thon Muscu</h3>
-                <p class="text-xs text-gray-400 italic">Riz blanc, une boîte de thon, filet d'huile d'olive.</p>
-            </div>
-            <div class="card-gold p-6 rounded-2xl">
-                <h3 class="text-gold-500 font-bold mb-2">4. Poulet Curry Express</h3>
-                <p class="text-xs text-gray-400 italic">Blanc de poulet émincé, épices curry, yaourt nature.</p>
-            </div>
-            <div class="card-gold p-6 rounded-2xl">
-                <h3 class="text-gold-500 font-bold mb-2">5. Pâtes Complètes 5%</h3>
-                <p class="text-xs text-gray-400 italic">Pâtes, viande hachée 5%, sauce tomate basilic.</p>
-            </div>
-            <div class="card-gold p-6 rounded-2xl">
-                <h3 class="text-gold-500 font-bold mb-2">6. Bowl de Lentilles</h3>
-                <p class="text-xs text-gray-400 italic">Lentilles cuites, cumin, oeuf poché sur le dessus.</p>
-            </div>
-            <div class="card-gold p-6 rounded-2xl">
-                <h3 class="text-gold-500 font-bold mb-2">7. Sandwich Dinde Pro</h3>
-                <p class="text-xs text-gray-400 italic">Pain complet, tranches de dinde, moutarde, salade.</p>
-            </div>
-            <div class="card-gold p-6 rounded-2xl">
-                <h3 class="text-gold-500 font-bold mb-2">8. Sardines Power</h3>
-                <p class="text-xs text-gray-400 italic">Sardines à l'huile (égouttées), pain de seigle, citron.</p>
-            </div>
-            <div class="card-gold p-6 rounded-2xl">
-                <h3 class="text-gold-500 font-bold mb-2">9. Shake Avoine/Banane</h3>
-                <p class="text-xs text-gray-400 italic">Avoine mixé, lait, 1 banane, une pincée de cannelle.</p>
-            </div>
-            <div class="card-gold p-6 rounded-2xl">
-                <h3 class="text-gold-500 font-bold mb-2">10. Salade de Pois Chiches</h3>
-                <p class="text-xs text-gray-400 italic">Pois chiches, thon, oignon rouge, persil.</p>
-            </div>
+        <div id="tab-recettes" class="hidden grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div class="card-gold p-4 rounded-xl"><h3 class="text-gold-500 font-bold">1. Porridge Bourabah</h3><p class="text-sm italic text-gray-400">120g avoine, 4 oeufs, 1 banane, 20g beurre cacahuète.</p></div>
+            <div class="card-gold p-4 rounded-xl"><h3 class="text-gold-500 font-bold">2. Omelette Éco</h3><p class="text-sm italic text-gray-400">3 oeufs, oignons, tomates, fromage.</p></div>
+            <div class="card-gold p-4 rounded-xl"><h3 class="text-gold-500 font-bold">3. Riz-Thon Muscu</h3><p class="text-sm italic text-gray-400">Riz blanc, thon, huile d'olive.</p></div>
+            <div class="card-gold p-4 rounded-xl"><h3 class="text-gold-500 font-bold">4. Poulet Curry</h3><p class="text-sm italic text-gray-400">Blanc de poulet, curry, yaourt nature.</p></div>
+            <div class="card-gold p-4 rounded-xl"><h3 class="text-gold-500 font-bold">5. Pâtes 5%</h3><p class="text-sm italic text-gray-400">Pâtes, viande hachée 5%, tomate.</p></div>
+            <div class="card-gold p-4 rounded-xl"><h3 class="text-gold-500 font-bold">6. Bowl Lentilles</h3><p class="text-sm italic text-gray-400">Lentilles, cumin, oeuf poché.</p></div>
+            <div class="card-gold p-4 rounded-xl"><h3 class="text-gold-500 font-bold">7. Sandwich Dinde</h3><p class="text-sm italic text-gray-400">Pain complet, dinde, moutarde.</p></div>
+            <div class="card-gold p-4 rounded-xl"><h3 class="text-gold-500 font-bold">8. Sardines Power</h3><p class="text-sm italic text-gray-400">Sardines à l'huile, pain de seigle.</p></div>
+            <div class="card-gold p-4 rounded-xl"><h3 class="text-gold-500 font-bold">9. Shake Avoine</h3><p class="text-sm italic text-gray-400">Avoine mixé, lait, banane.</p></div>
+            <div class="card-gold p-4 rounded-xl"><h3 class="text-gold-500 font-bold">10. Pois Chiches Fit</h3><p class="text-sm italic text-gray-400">Pois chiches, thon, oignons.</p></div>
         </div>
     </section>
 
     <section id="workouts" class="py-16 px-4 bg-dark-900 border-y border-white/5">
         <div class="max-w-6xl mx-auto">
-            <h2 class="text-4xl font-title text-center mb-12 text-gold-500">Programmes d'Entraînement</h2>
+            <h2 class="text-4xl font-title text-center mb-12 text-gold-500">Programmes</h2>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
                 <div class="card-gold p-8 rounded-3xl">
-                    <h3 class="text-2xl font-bold mb-6 border-b border-gold-500/20 pb-2">PPL (Push/Pull/Legs)</h3>
+                    <h3 class="text-2xl font-bold mb-6 border-b border-gold-500/20 pb-2 uppercase">PPL (Push/Pull/Legs)</h3>
                     <div class="space-y-6">
-                        <div><p class="text-gold-500 font-bold">Push (Poussée)</p><img src="push.jpg" class="exercise-img"></div>
-                        <div><p class="text-gold-500 font-bold">Pull (Tirage)</p><img src="pull.jpg" class="exercise-img"></div>
-                        <div><p class="text-gold-500 font-bold">Legs (Jambes)</p><img src="legs.jpg" class="exercise-img"></div>
+                        <div><p class="text-gold-500 font-bold uppercase">Push</p><img src="push.jpg" class="exercise-img" alt="Push"></div>
+                        <div><p class="text-gold-500 font-bold uppercase">Pull</p><img src="pull.jpg" class="exercise-img" alt="Pull"></div>
+                        <div><p class="text-gold-500 font-bold uppercase">Legs</p><img src="legs.jpg" class="exercise-img" alt="Legs"></div>
                     </div>
                 </div>
                 <div class="card-gold p-8 rounded-3xl">
-                    <h3 class="text-2xl font-bold mb-6 border-b border-gold-500/20 pb-2">Split 5 Jours Classic</h3>
-                    <div class="grid grid-cols-1 gap-6">
-                        <div><p class="text-gold-500 font-bold text-center uppercase">Pectoraux</p><img src="pecs.jpg" class="exercise-img"></div>
-                        <div><p class="text-gold-500 font-bold text-center uppercase">Dos</p><img src="dos.jpg" class="exercise-img"></div>
-                        <div><p class="text-gold-500 font-bold text-center uppercase">Épaules</p><img src="epaules.jpg" class="exercise-img"></div>
-                        <div><p class="text-gold-500 font-bold text-center uppercase">Jambes</p><img src="jambes.jpg" class="exercise-img"></div>
+                    <h3 class="text-2xl font-bold mb-6 border-b border-gold-500/20 pb-2 uppercase">Split 5 Jours</h3>
+                    <div class="grid grid-cols-1 gap-6 text-center">
+                        <div><p class="text-gold-500 font-bold">PECTORAUX</p><img src="pecs.jpg" class="exercise-img" alt="Pecs"></div>
+                        <div><p class="text-gold-500 font-bold">DOS</p><img src="dos.jpg" class="exercise-img" alt="Dos"></div>
+                        <div><p class="text-gold-500 font-bold">ÉPAULES</p><img src="epaules.jpg" class="exercise-img" alt="Epaules"></div>
+                        <div><p class="text-gold-500 font-bold">JAMBES</p><img src="jambes.jpg" class="exercise-img" alt="Jambes"></div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <section id="bmi" class="py-20 px-4 bg-black">
-        <div class="max-w-md mx-auto card-gold p-10 rounded-3xl shadow-2xl border-gold-500/50">
-            <h2 class="text-2xl font-title font-bold text-gold-500 mb-6 text-center italic">CALCULATEUR IMC</h2>
-            <input type="number" id="weight" placeholder="Poids (kg)" class="w-full p-4 bg-dark-900 rounded-xl mb-4 outline-none border border-gray-800 focus:border-gold-500 text-white">
-            <input type="number" id="height" placeholder="Taille (cm)" class="w-full p-4 bg-dark-900 rounded-xl mb-4 outline-none border border-gray-800 focus:border-gold-500 text-white">
-            <button onclick="calcBMI()" class="w-full gold-gradient text-black py-4 rounded-xl font-bold hover:scale-[1.02] transition">CALCULER</button>
-            <div id="result" class="mt-8 p-6 bg-dark-900 rounded-xl text-center hidden border border-gold-500/20">
-                <div id="bmi-value" class="text-4xl font-bold text-gold-500"></div>
-                <div id="advice" class="mt-2 text-gray-300 font-bold"></div>
-            </div>
-        </div>
-    </section>
-
-    <footer class="py-12 text-center text-gray-600 border-t border-white/5">
-        <p class="font-title text-sm tracking-widest text-gold-600">© 2026 BOURABAH GYM • NO PAIN NO GAIN</p>
-    </footer>
-
     <script>
-        function switchTab(tab) {
-            document.getElementById('tab-masse').classList.add('hidden');
-            document.getElementById('tab-seche').classList.add('hidden');
-            document.getElementById('tab-recettes').classList.add('hidden');
-            document.getElementById('tab-' + tab).classList.remove('hidden');
+        let currentCategory = '';
+        const dayNames = ["Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi", "Dimanche"];
+        
+        const diets = {
+            masse: [
+                { b: "120g Avoine + 4 Oeufs entiers", l: "150g Riz + 200g Poulet + Brocolis", d: "150g Pâtes + 150g Viande hachée" },
+                { b: "Porridge Banane + 4 Oeufs", l: "150g Riz + Steak 5% + Huile d'olive", d: "Lentilles + Pain complet + Fromage" },
+                { b: "Avoine au Miel + 4 Oeufs", l: "Couscous complet + Poulet + Légumes", d: "Riz + 2 Boîtes de Sardines" },
+                { b: "4 Oeufs + Tartines Beurre Cacahuète", l: "Loubia (Haricots) + Salade", d: "Pâtes + Escalope de dinde" },
+                { b: "Avoine au Lait + 4 Oeufs", l: "150g Riz + Poisson blanc + Huile olive", d: "Omelette 4 oeufs + Avocat" },
+                { b: "Pancakes Avoine (3 oeufs/100g avoine)", l: "Burger Fit (Steak 5%/Pain complet)", d: "Riz + Lentilles + Huile d'olive" },
+                { b: "Brunch Oeufs & Avocat", l: "Repas libre modéré", d: "Poulet grillé + Salade composée" }
+            ],
+            seche: [
+                { b: "60g Avoine + 3 Oeufs", l: "80g Riz + 150g Poulet + Salade", d: "Soupe de légumes + Blanc dinde" },
+                { b: "Omelette épinards (3 oeufs)", l: "Poisson vapeur + Courgettes", d: "Yaourt nature + Salade de thon" },
+                { b: "60g Avoine + Café noir", l: "100g Lentilles + Salade verte", d: "2 Oeufs + Brocolis vapeur" },
+                { b: "Thon naturel + 1 tranche pain complet", l: "Escalope dinde + Haricots verts", d: "Soupe de poisson ou légumes" },
+                { b: "2 Oeufs + Salade", l: "60g Riz + Poisson blanc", d: "Blanc de poulet + Concombre" },
+                { b: "Omelette champignons", l: "Steak 5% + Salade géante", d: "Fromage blanc 0% + Thé vert" },
+                { b: "Jeûne intermittent ou 3 Oeufs", l: "Poulet grillé + Légumes", d: "Salade verte uniquement" }
+            ]
+        };
 
-            const btns = ['btn-masse', 'btn-seche', 'btn-recettes'];
-            btns.forEach(id => {
+        function selectCategory(cat) {
+            currentCategory = cat;
+            document.getElementById('day-selector').classList.add('hidden');
+            document.getElementById('menu-display').classList.add('hidden');
+            document.getElementById('tab-recettes').classList.add('hidden');
+
+            // Reset boutons
+            ['cat-masse', 'cat-seche', 'cat-recettes'].forEach(id => {
                 document.getElementById(id).classList.remove('gold-gradient', 'text-black');
-                document.getElementById(id).classList.add('bg-dark-700', 'text-white');
             });
-            
-            const activeBtn = document.getElementById('btn-' + tab);
-            activeBtn.classList.remove('bg-dark-700', 'text-white');
-            activeBtn.classList.add('gold-gradient', 'text-black');
+
+            document.getElementById('cat-' + cat).classList.add('gold-gradient', 'text-black');
+
+            if (cat === 'recettes') {
+                document.getElementById('tab-recettes').classList.remove('hidden');
+            } else {
+                document.getElementById('day-selector').classList.remove('hidden');
+                showDayMenu(0); // Affiche lundi par défaut
+            }
         }
 
-        function calcBMI() {
-            const weight = parseFloat(document.getElementById('weight').value);
-            const height = parseFloat(document.getElementById('height').value) / 100;
-            if(!weight || !height) return;
-            const bmi = (weight / (height * height)).toFixed(1);
-            document.getElementById('result').classList.remove('hidden');
-            document.getElementById('bmi-value').textContent = bmi;
-            const advice = document.getElementById('advice');
-            if (bmi < 18.5) advice.innerHTML = "PRISE DE MASSE NÉCESSAIRE";
-            else if (bmi < 25) advice.innerHTML = "POIDS IDÉAL ✅";
-            else advice.innerHTML = "SÈCHE CONSEILLÉE";
+        function showDayMenu(dayIndex) {
+            const menu = diets[currentCategory][dayIndex];
+            document.getElementById('display-day-name').textContent = dayNames[dayIndex];
+            document.getElementById('breakfast-text').textContent = menu.b;
+            document.getElementById('lunch-text').textContent = menu.l;
+            document.getElementById('dinner-text').textContent = menu.d;
+            document.getElementById('menu-display').classList.remove('hidden');
+
+            // Style boutons jours
+            const btns = document.querySelectorAll('.day-btn');
+            btns.forEach((btn, i) => {
+                if(i === dayIndex) btn.classList.add('active-day');
+                else btn.classList.remove('active-day');
+            });
         }
     </script>
 </body>
