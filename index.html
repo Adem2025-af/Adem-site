@@ -2,7 +2,7 @@
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">.
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>بورباح جيم - مركز اللياقة والتغذية</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -29,7 +29,6 @@
             border: 2px solid #10b981;
             box-shadow: 0 4px 15px rgba(0,0,0,0.3);
         }
-        /* Assure que les éléments cachés le restent vraiment au départ */
         .hidden { display: none !important; }
     </style>
 </head>
@@ -178,32 +177,28 @@
 
     <script>
         function showDiet(tab) {
-            // Cacher tous les onglets de nutrition
             const contents = document.querySelectorAll('.diet-content');
             contents.forEach(c => {
                 c.classList.add('hidden');
                 c.classList.remove('grid');
             });
 
-            // Remettre les boutons en gris
             const buttons = document.querySelectorAll('.diet-btn');
             buttons.forEach(b => {
-                b.style.backgroundColor = '#374151'; // bg-gray-700
-                b.style.color = '#d1d5db'; // text-gray-300
+                b.style.backgroundColor = '#374151'; 
+                b.style.color = '#d1d5db'; 
             });
 
-            // Afficher l'onglet actif
             const activeTab = document.getElementById(tab + '-tab');
             if(activeTab) {
                 activeTab.classList.remove('hidden');
                 activeTab.classList.add('grid');
             }
 
-            // Mettre le bouton actif en vert
             const activeBtn = document.getElementById('btn-' + tab);
             if(activeBtn) {
-                activeBtn.style.backgroundColor = '#059669'; // bg-emerald-600
-                activeBtn.style.color = '#ffffff'; // text-white
+                activeBtn.style.backgroundColor = '#059669'; 
+                activeBtn.style.color = '#ffffff'; 
             }
         }
 
@@ -226,7 +221,6 @@
             else advice.innerHTML = "تحتاج لتعديل نظامك الغذائي (تنشيف)";
         }
 
-        // Au chargement de la page, on initialise sur "masse"
         window.onload = function() {
             showDiet('masse');
         };
