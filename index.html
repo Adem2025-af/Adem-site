@@ -23,23 +23,12 @@
         html { scroll-behavior: smooth; }
         body { background-color: #050505; color: #f3f4f6; }
         .gold-gradient { background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%); }
-        .card-gold { background: #111; border: 1px solid #262626; transition: 0.3s; }
-        .exercise-img { width: 100%; border-radius: 12px; border: 2px solid #f59e0b; margin-top: 10px; }
+        .card-gold { background: #111; border: 1px solid #262626; transition: 0.3s; height: 100%; display: flex; flex-direction: column; }
+        .exercise-img { width: 100%; border-radius: 12px; border: 2px solid #f59e0b; margin-top: 10px; object-fit: cover; flex-grow: 1; }
         .hidden { display: none !important; }
         .day-btn { transition: 0.2s; border: 1px solid #262626; }
         .day-btn:hover { border-color: #f59e0b; color: #f59e0b; }
         .active-day { background: #f59e0b !important; color: black !important; font-weight: bold; border-color: #f59e0b; }
-        /* Style spécifique pour la grille d'exercices avec la nouvelle image bras insérée */
-        .legs-grid {
-            display: grid;
-            grid-template-columns: repeat(2, minmax(0, 1fr));
-            gap: 1.5rem;
-        }
-        @media (min-width: 768px) {
-            .legs-grid {
-                grid-template-columns: repeat(3, minmax(0, 1fr));
-            }
-        }
     </style>
 </head>
 <body class="font-sans">
@@ -50,7 +39,6 @@
             <div class="hidden md:flex space-x-8">
                 <a href="#nutrition" class="text-sm font-bold hover:text-gold-400">NUTRITION</a>
                 <a href="#workouts" class="text-sm font-bold hover:text-gold-400">ENTRAÎNEMENT</a>
-                <a href="#bras-ppl" class="text-sm font-bold hover:text-gold-400">BRAS</a>
             </div>
         </div>
     </nav>
@@ -79,15 +67,15 @@
                 <div class="absolute top-0 right-0 gold-gradient px-4 py-1 text-black font-bold text-xs uppercase" id="display-day-name">Lundi</div>
                 <div class="space-y-6 mt-4">
                     <div>
-                        <h4 class="text-gold-500 font-bold uppercase text-sm tracking-widest flex items-center">☀️ Petit-Déjeuner</h4>
+                        <h4 class="text-gold-500 font-bold uppercase text-sm tracking-widest">☀️ Petit-Déjeuner</h4>
                         <p id="breakfast-text" class="text-lg text-gray-200 mt-1"></p>
                     </div>
                     <div class="border-t border-white/5 pt-4">
-                        <h4 class="text-gold-500 font-bold uppercase text-sm tracking-widest flex items-center">🍴 Déjeuner</h4>
+                        <h4 class="text-gold-500 font-bold uppercase text-sm tracking-widest">🍴 Déjeuner</h4>
                         <p id="lunch-text" class="text-lg text-gray-200 mt-1"></p>
                     </div>
                     <div class="border-t border-white/5 pt-4">
-                        <h4 class="text-gold-500 font-bold uppercase text-sm tracking-widest flex items-center">🌙 Dîner</h4>
+                        <h4 class="text-gold-500 font-bold uppercase text-sm tracking-widest">🌙 Dîner</h4>
                         <p id="dinner-text" class="text-lg text-gray-200 mt-1"></p>
                     </div>
                 </div>
@@ -108,43 +96,45 @@
         </div>
     </section>
 
-    <section id="workouts" class="py-16 px-4 bg-dark-900 border-y border-white/5">
-        <div class="max-w-7xl mx-auto space-y-16">
-            <h2 class="text-4xl font-title text-center mb-12 text-gold-500">Programmes d'Entraînement</h2>
+    <section id="workouts" class="py-16 px-4 bg-dark-900 border-y border-white/5 relative">
+        <div class="max-w-7xl mx-auto space-y-12">
+            <h2 class="text-4xl font-title text-center mb-12 text-gold-500 italic">Programmes de Force</h2>
             
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <div class="card-gold p-8 rounded-3xl">
-                    <h3 class="text-2xl font-bold mb-6 border-b border-gold-500/20 pb-2 uppercase text-center">PPL (Push/Pull/Legs)</h3>
-                    <div class="space-y-6">
-                        <div><p class="text-gold-500 font-bold uppercase text-center">Push (Pecs/Épaules)</p><img src="push.jpg" class="exercise-img" alt="Push"></div>
-                        <div><p class="text-gold-500 font-bold uppercase text-center">Pull (Dos)</p><img src="pull.jpg" class="exercise-img" alt="Pull"></div>
-                        <div><p class="text-gold-500 font-bold uppercase text-center">Legs (Jambes)</p><img src="legs.jpg" class="exercise-img" alt="Legs"></div>
+            <div class="bg-dark-800 p-1 rounded-2xl border border-gold-500/10">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-1 md:gap-4 p-1">
+                    
+                    <div class="flex flex-col gap-1 md:gap-4">
+                        <div class="card-gold p-6 rounded-xl">
+                            <h3 class="text-xl font-bold mb-4 border-b border-gold-500/20 pb-1 uppercase text-gold-500">PPL : PUSH (Pecs/Épaules)</h3>
+                            <img src="push.jpg" class="exercise-img" alt="Push">
+                        </div>
+                        <div class="card-gold p-6 rounded-xl flex-grow">
+                            <h3 class="text-xl font-bold mb-4 border-b border-gold-500/20 pb-1 uppercase text-gold-500 hover:text-white transition cursor-pointer" onclick="document.getElementById('workouts-split').scrollIntoView()">PPL : PULL (Dos)</h3>
+                            <img src="pull.jpg" class="exercise-img" alt="Pull">
+                        </div>
                     </div>
-                </div>
 
-                <div class="card-gold p-8 rounded-3xl">
-                    <h3 class="text-2xl font-bold mb-6 border-b border-gold-500/20 pb-2 uppercase text-center">Split 5 Jours Classic</h3>
-                    <div class="grid grid-cols-1 gap-6 text-center">
-                        <div><p class="text-gold-500 font-bold">PECTORAUX</p><img src="pecs.jpg" class="exercise-img" alt="Pecs"></div>
-                        <div><p class="text-gold-500 font-bold">DOS</p><img src="dos.jpg" class="exercise-img" alt="Dos"></div>
-                        <div><p class="text-gold-500 font-bold">ÉPAULES</p><img src="epaules.jpg" class="exercise-img" alt="Epaules"></div>
-                        <div><p class="text-gold-500 font-bold">JAMBES</p><img src="jambes.jpg" class="exercise-img" alt="Jambes"></div>
+                    <div class="flex flex-col gap-1 md:gap-4">
+                        <div class="card-gold p-6 rounded-xl">
+                            <h3 class="text-xl font-bold mb-4 border-b border-gold-500/20 pb-1 uppercase text-gold-500">PPL : LEGS (Jambes)</h3>
+                            <img src="legs.jpg" class="exercise-img" alt="Legs">
+                        </div>
+                        <div class="card-gold p-6 rounded-xl flex-grow">
+                            <h3 class="text-xl font-bold mb-4 border-b border-gold-500/20 pb-1 uppercase text-white tracking-widest">SÉANCE BRAS (Biceps/Triceps)</h3>
+                            <img src="bras.jpg" class="exercise-img" alt="Bras">
+                        </div>
                     </div>
+
                 </div>
             </div>
 
-            <div id="bras-ppl" class="card-gold p-8 rounded-3xl border border-gold-500/50 pt-16 mt-16">
-                <h3 class="text-2xl font-bold mb-6 border-b border-gold-500/20 pb-2 uppercase text-center text-white">Séance Bras (Biceps/Triceps) - Spécial PPL</h3>
-                <img src="bras.jpg" class="exercise-img mb-10" alt="Bras">
-                
-                <p class="text-gold-500 font-bold uppercase text-center border-t border-gold-500/20 pt-8 mb-6">Grille de Séance Jambes Complète</p>
-                <div class="legs-grid">
-                    <div><p class="text-white font-bold text-lg mb-2 text-center">1. Squat</p><img src="legs-ex1.jpg" class="exercise-img" alt="Ex1"></div>
-                    <div><p class="text-white font-bold text-lg mb-2 text-center">2. Soulevé de terre</p><img src="legs-ex2.jpg" class="exercise-img" alt="Ex2"></div>
-                    <div><p class="text-white font-bold text-lg mb-2 text-center">3. Fentes</p><img src="legs-ex3.jpg" class="exercise-img" alt="Ex3"></div>
-                    <div><p class="text-white font-bold text-lg mb-2 text-center">4. Presse à jambes</p><img src="legs-ex4.jpg" class="exercise-img" alt="Ex4"></div>
-                    <div><p class="text-white font-bold text-lg mb-2 text-center">5. Leg Curl</p><img src="legs-ex5.jpg" class="exercise-img" alt="Ex5"></div>
-                    <div><p class="text-white font-bold text-lg mb-2 text-center">6. Mollets</p><img src="legs-ex6.jpg" class="exercise-img" alt="Ex6"></div>
+            <div id="workouts-split" class="card-gold p-8 rounded-3xl border border-gold-500/10 mt-12 pt-16">
+                <h3 class="text-2xl font-bold mb-6 border-b border-gold-500/20 pb-2 uppercase text-center text-white tracking-widest">Classic Split (5 Jours)</h3>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 text-center">
+                    <div><p class="text-xs text-gold-600 uppercase mb-1">Pectoraux</p><img src="pecs.jpg" class="exercise-img" alt="Pecs"></div>
+                    <div><p class="text-xs text-gold-600 uppercase mb-1">Dos</p><img src="dos.jpg" class="exercise-img" alt="Dos"></div>
+                    <div><p class="text-xs text-gold-600 uppercase mb-1">Épaules</p><img src="epaules.jpg" class="exercise-img" alt="Epaules"></div>
+                    <div><p class="text-xs text-gold-600 uppercase mb-1">Jambes</p><img src="jambes.jpg" class="exercise-img" alt="Jambes"></div>
                 </div>
             </div>
 
@@ -152,7 +142,7 @@
     </section>
 
     <footer class="py-12 text-center text-gray-600 border-t border-white/5 bg-black mt-20">
-        <p class="font-title text-sm tracking-widest text-gold-600">© 2026 BOURABAH GYM • DISCIPLINE OVER MOTIVATION</p>
+        <p class="font-title text-sm tracking-widest text-gold-600">© 2026 BOURABAH GYM • NO LIMITS</p>
     </footer>
 
     <script>
@@ -186,7 +176,6 @@
             document.getElementById('menu-display').classList.add('hidden');
             document.getElementById('tab-recettes').classList.add('hidden');
 
-            // Reset boutons
             ['cat-masse', 'cat-seche', 'cat-recettes'].forEach(id => {
                 document.getElementById(id).classList.remove('gold-gradient', 'text-black');
             });
@@ -197,7 +186,7 @@
                 document.getElementById('tab-recettes').classList.remove('hidden');
             } else {
                 document.getElementById('day-selector').classList.remove('hidden');
-                showDayMenu(0); // Affiche lundi par défaut
+                showDayMenu(0);
             }
         }
 
@@ -209,7 +198,6 @@
             document.getElementById('dinner-text').textContent = menu.d;
             document.getElementById('menu-display').classList.remove('hidden');
 
-            // Style boutons jours
             const btns = document.querySelectorAll('.day-btn');
             btns.forEach((btn, i) => {
                 if(i === dayIndex) btn.classList.add('active-day');
