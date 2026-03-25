@@ -1,209 +1,145 @@
 <!DOCTYPE html>
-<html lang="fr" dir="ltr">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BOURABAH GYM - Excellence Fitness</title>
+    <title>BOURABAH GYM - Progression</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        gold: { 400: '#fbbf24', 500: '#f59e0b', 600: '#d97706' },
-                        dark: { 900: '#050505', 800: '#0a0a0a', 700: '#171717' }
-                    },
-                    fontFamily: { 'title': ['Orbitron', 'sans-serif'], 'sans': ['Poppins', 'sans-serif'] }
-                }
-            }
-        }
-    </script>
     <style>
-        html { scroll-behavior: smooth; }
-        body { background-color: #050505; color: #f3f4f6; }
+        body { background-color: #050505; color: #f3f4f6; font-family: 'Poppins', sans-serif; scroll-behavior: smooth; }
         .gold-gradient { background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%); }
-        .card-gold { background: #111; border: 1px solid #262626; transition: 0.3s; height: 100%; display: flex; flex-direction: column; }
-        .exercise-img { width: 100%; border-radius: 12px; border: 2px solid #f59e0b; margin-top: 10px; object-fit: cover; flex-grow: 1; }
+        .card-gold { background: #111; border: 1px solid #262626; transition: 0.3s; }
         .hidden { display: none !important; }
-        .day-btn { transition: 0.2s; border: 1px solid #262626; }
-        .day-btn:hover { border-color: #f59e0b; color: #f59e0b; }
-        .active-day { background: #f59e0b !important; color: black !important; font-weight: bold; border-color: #f59e0b; }
     </style>
 </head>
-<body class="font-sans">
+<body>
 
-    <nav class="sticky top-0 bg-black/90 backdrop-blur-md border-b border-gold-600/30 z-50">
-        <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
-            <h1 class="text-2xl font-title font-bold text-gold-500 tracking-tighter">BOURABAH GYM</h1>
-            <div class="hidden md:flex space-x-8">
-                <a href="#nutrition" class="text-sm font-bold hover:text-gold-400">NUTRITION</a>
-                <a href="#workouts" class="text-sm font-bold hover:text-gold-400">ENTRAÎNEMENT</a>
+    <nav class="sticky top-0 bg-black/90 backdrop-blur-md border-b border-gold-600/30 z-50 px-6 py-4">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <h1 class="text-xl font-bold text-gold-500 font-serif tracking-tighter">BOURABAH GYM</h1>
+            <div id="auth-controls">
+                <button id="login-btn" onclick="openModal()" class="bg-gold-500 text-black px-4 py-1 rounded-lg font-bold text-sm hover:scale-105 transition">CONNEXION</button>
+                <div id="user-display" class="hidden flex items-center gap-4">
+                    <span id="user-email" class="text-xs text-gray-400 italic"></span>
+                    <button onclick="handleLogout()" class="text-red-500 text-xs font-bold uppercase border border-red-500/30 px-2 py-1 rounded">Quitter</button>
+                </div>
             </div>
         </div>
     </nav>
 
-    <section id="nutrition" class="py-16 px-4 max-w-5xl mx-auto">
-        <h2 class="text-4xl font-title text-center mb-12 uppercase text-gold-500 italic">Programmes Stratégiques</h2>
-        
-        <div class="flex justify-center gap-4 mb-8 flex-wrap">
-            <button onclick="selectCategory('masse')" id="cat-masse" class="px-6 py-4 rounded-xl font-bold border border-gold-500/50 hover:bg-gold-500 hover:text-black transition uppercase">Prise de Masse</button>
-            <button onclick="selectCategory('seche')" id="cat-seche" class="px-6 py-4 rounded-xl font-bold border border-gold-500/50 hover:bg-gold-500 hover:text-black transition uppercase">Sèche Éco</button>
-            <button onclick="selectCategory('recettes')" id="cat-recettes" class="px-6 py-4 rounded-xl font-bold border border-gold-500/50 hover:bg-gold-500 hover:text-black transition uppercase">10 Recettes</button>
-        </div>
-
-        <div id="day-selector" class="hidden flex justify-center gap-2 mb-10 flex-wrap border-t border-white/5 pt-8">
-            <button onclick="showDayMenu(0)" class="day-btn bg-dark-700 px-4 py-2 rounded-lg text-sm">Lun</button>
-            <button onclick="showDayMenu(1)" class="day-btn bg-dark-700 px-4 py-2 rounded-lg text-sm">Mar</button>
-            <button onclick="showDayMenu(2)" class="day-btn bg-dark-700 px-4 py-2 rounded-lg text-sm">Mer</button>
-            <button onclick="showDayMenu(3)" class="day-btn bg-dark-700 px-4 py-2 rounded-lg text-sm">Jeu</button>
-            <button onclick="showDayMenu(4)" class="day-btn bg-dark-700 px-4 py-2 rounded-lg text-sm">Ven</button>
-            <button onclick="showDayMenu(5)" class="day-btn bg-dark-700 px-4 py-2 rounded-lg text-sm">Sam</button>
-            <button onclick="showDayMenu(6)" class="day-btn bg-dark-700 px-4 py-2 rounded-lg text-sm">Dim</button>
-        </div>
-
-        <div id="menu-display" class="hidden max-w-2xl mx-auto">
-            <div class="card-gold p-8 rounded-3xl relative overflow-hidden">
-                <div class="absolute top-0 right-0 gold-gradient px-4 py-1 text-black font-bold text-xs uppercase" id="display-day-name">Lundi</div>
-                <div class="space-y-6 mt-4">
-                    <div>
-                        <h4 class="text-gold-500 font-bold uppercase text-sm tracking-widest">☀️ Petit-Déjeuner</h4>
-                        <p id="breakfast-text" class="text-lg text-gray-200 mt-1"></p>
-                    </div>
-                    <div class="border-t border-white/5 pt-4">
-                        <h4 class="text-gold-500 font-bold uppercase text-sm tracking-widest">🍴 Déjeuner</h4>
-                        <p id="lunch-text" class="text-lg text-gray-200 mt-1"></p>
-                    </div>
-                    <div class="border-t border-white/5 pt-4">
-                        <h4 class="text-gold-500 font-bold uppercase text-sm tracking-widest">🌙 Dîner</h4>
-                        <p id="dinner-text" class="text-lg text-gray-200 mt-1"></p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div id="tab-recettes" class="hidden grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div class="card-gold p-4 rounded-xl"><h3 class="text-gold-500 font-bold">1. Porridge Bourabah</h3><p class="text-sm italic text-gray-400">120g avoine, 4 oeufs, 1 banane, 20g beurre cacahuète.</p></div>
-            <div class="card-gold p-4 rounded-xl"><h3 class="text-gold-500 font-bold">2. Omelette Éco</h3><p class="text-sm italic text-gray-400">3 oeufs, oignons, tomates, fromage.</p></div>
-            <div class="card-gold p-4 rounded-xl"><h3 class="text-gold-500 font-bold">3. Riz-Thon Muscu</h3><p class="text-sm italic text-gray-400">Riz blanc, thon, huile d'olive.</p></div>
-            <div class="card-gold p-4 rounded-xl"><h3 class="text-gold-500 font-bold">4. Poulet Curry</h3><p class="text-sm italic text-gray-400">Blanc de poulet, curry, yaourt nature.</p></div>
-            <div class="card-gold p-4 rounded-xl"><h3 class="text-gold-500 font-bold">5. Pâtes 5%</h3><p class="text-sm italic text-gray-400">Pâtes, viande hachée 5%, tomate.</p></div>
-            <div class="card-gold p-4 rounded-xl"><h3 class="text-gold-500 font-bold">6. Bowl Lentilles</h3><p class="text-sm italic text-gray-400">Lentilles, cumin, oeuf poché.</p></div>
-            <div class="card-gold p-4 rounded-xl"><h3 class="text-gold-500 font-bold">7. Sandwich Dinde</h3><p class="text-sm italic text-gray-400">Pain complet, dinde, moutarde.</p></div>
-            <div class="card-gold p-4 rounded-xl"><h3 class="text-gold-500 font-bold">8. Sardines Power</h3><p class="text-sm italic text-gray-400">Sardines à l'huile, pain de seigle.</p></div>
-            <div class="card-gold p-4 rounded-xl"><h3 class="text-gold-500 font-bold">9. Shake Avoine</h3><p class="text-sm italic text-gray-400">Avoine mixé, lait, banane.</p></div>
-            <div class="card-gold p-4 rounded-xl"><h3 class="text-gold-500 font-bold">10. Pois Chiches Fit</h3><p class="text-sm italic text-gray-400">Pois chiches, thon, oignons.</p></div>
-        </div>
-    </section>
-
-    <section id="workouts" class="py-16 px-4 bg-dark-900 border-y border-white/5 relative">
-        <div class="max-w-7xl mx-auto space-y-12">
-            <h2 class="text-4xl font-title text-center mb-12 text-gold-500 italic">Programmes de Force</h2>
+    <section id="tracker-section" class="hidden py-12 px-4 max-w-2xl mx-auto">
+        <div class="card-gold p-8 rounded-3xl border-2 border-gold-500 shadow-xl">
+            <h2 class="text-2xl font-bold text-gold-500 mb-6 text-center uppercase tracking-widest italic">Suivi de Progression</h2>
             
-            <div class="bg-dark-800 p-1 rounded-2xl border border-gold-500/10">
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-1 md:gap-4 p-1">
-                    
-                    <div class="flex flex-col gap-1 md:gap-4">
-                        <div class="card-gold p-6 rounded-xl">
-                            <h3 class="text-xl font-bold mb-4 border-b border-gold-500/20 pb-1 uppercase text-gold-500">PPL : PUSH (Pecs/Épaules)</h3>
-                            <img src="push.jpg" class="exercise-img" alt="Push">
-                        </div>
-                        <div class="card-gold p-6 rounded-xl flex-grow">
-                            <h3 class="text-xl font-bold mb-4 border-b border-gold-500/20 pb-1 uppercase text-gold-500 hover:text-white transition cursor-pointer" onclick="document.getElementById('workouts-split').scrollIntoView()">PPL : PULL (Dos)</h3>
-                            <img src="pull.jpg" class="exercise-img" alt="Pull">
-                        </div>
-                    </div>
-
-                    <div class="flex flex-col gap-1 md:gap-4">
-                        <div class="card-gold p-6 rounded-xl">
-                            <h3 class="text-xl font-bold mb-4 border-b border-gold-500/20 pb-1 uppercase text-gold-500">PPL : LEGS (Jambes)</h3>
-                            <img src="legs.jpg" class="exercise-img" alt="Legs">
-                        </div>
-                        <div class="card-gold p-6 rounded-xl flex-grow">
-                            <h3 class="text-xl font-bold mb-4 border-b border-gold-500/20 pb-1 uppercase text-white tracking-widest">SÉANCE BRAS (Biceps/Triceps)</h3>
-                            <img src="bras.jpg" class="exercise-img" alt="Bras">
-                        </div>
-                    </div>
-
-                </div>
+            <div class="flex gap-2 mb-8">
+                <input type="number" id="weight-input" step="0.1" placeholder="Ton poids (kg)" class="flex-grow bg-dark-700 border border-white/10 p-3 rounded-xl text-white outline-none focus:border-gold-500">
+                <button onclick="addWeight()" class="gold-gradient text-black px-6 py-3 rounded-xl font-bold hover:brightness-110">ENREGISTRER</button>
             </div>
 
-            <div id="workouts-split" class="card-gold p-8 rounded-3xl border border-gold-500/10 mt-12 pt-16">
-                <h3 class="text-2xl font-bold mb-6 border-b border-gold-500/20 pb-2 uppercase text-center text-white tracking-widest">Classic Split (5 Jours)</h3>
-                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 text-center">
-                    <div><p class="text-xs text-gold-600 uppercase mb-1">Pectoraux</p><img src="pecs.jpg" class="exercise-img" alt="Pecs"></div>
-                    <div><p class="text-xs text-gold-600 uppercase mb-1">Dos</p><img src="dos.jpg" class="exercise-img" alt="Dos"></div>
-                    <div><p class="text-xs text-gold-600 uppercase mb-1">Épaules</p><img src="epaules.jpg" class="exercise-img" alt="Epaules"></div>
-                    <div><p class="text-xs text-gold-600 uppercase mb-1">Jambes</p><img src="jambes.jpg" class="exercise-img" alt="Jambes"></div>
+            <div class="space-y-3" id="weight-history">
                 </div>
-            </div>
-
         </div>
     </section>
 
-    <footer class="py-12 text-center text-gray-600 border-t border-white/5 bg-black mt-20">
-        <p class="font-title text-sm tracking-widest text-gold-600">© 2026 BOURABAH GYM • NO LIMITS</p>
-    </footer>
+    <div id="login-msg" class="py-32 text-center">
+        <h2 class="text-3xl font-bold text-white mb-4">ESPACE MEMBRE</h2>
+        <p class="text-gray-500 italic mb-8">Connecte-toi pour enregistrer ton poids et suivre tes résultats.</p>
+        <button onclick="openModal()" class="gold-gradient text-black px-10 py-4 rounded-full font-bold uppercase tracking-widest shadow-lg">Se connecter</button>
+    </div>
 
-    <script>
-        let currentCategory = '';
-        const dayNames = ["Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi", "Dimanche"];
-        
-        const diets = {
-            masse: [
-                { b: "120g Avoine + 4 Oeufs entiers", l: "150g Riz + 200g Poulet + Brocolis", d: "150g Pâtes + 150g Viande hachée 5%" },
-                { b: "Porridge Banane + 4 Oeufs", l: "150g Riz + Steak 5% + Huile olive", d: "Lentilles + Pain complet + Fromage" },
-                { b: "Avoine au Miel + 4 Oeufs", l: "Couscous complet + Poulet + Légumes", d: "Riz + 2 Boîtes de Sardines" },
-                { b: "4 Oeufs + Tartines Beurre Cacahuète", l: "Loubia (Haricots) + Salade", d: "Pâtes + Escalope de dinde" },
-                { b: "Avoine au Lait + 4 Oeufs", l: "150g Riz + Poisson blanc + Huile olive", d: "Omelette 4 oeufs + Avocat" },
-                { b: "Pancakes Avoine (3 oeufs/100g avoine)", l: "Burger Fit (Steak 5%/Pain complet)", d: "Riz + Lentilles + Huile d'olive" },
-                { b: "Brunch Oeufs & Avocat", l: "Repas libre modéré", d: "Poulet grillé + Salade composée" }
-            ],
-            seche: [
-                { b: "60g Avoine + 3 Oeufs", l: "80g Riz + 150g Poulet + Salade", d: "Soupe de légumes + Blanc dinde" },
-                { b: "Omelette épinards (3 oeufs)", l: "Poisson vapeur + Courgettes", d: "Yaourt nature + Salade de thon" },
-                { b: "60g Avoine + Café noir", l: "100g Lentilles + Salade verte", d: "2 Oeufs + Brocolis vapeur" },
-                { b: "Thon naturel + 1 tranche pain complet", l: "Escalope dinde + Haricots verts", d: "Soupe de poisson ou légumes" },
-                { b: "2 Oeufs + Salade", l: "60g Riz + Poisson blanc", d: "Blanc de poulet + Concombre" },
-                { b: "Omelette champignons", l: "Steak 5% + Salade géante", d: "Fromage blanc 0% + Thé vert" },
-                { b: "Jeûne intermittent ou 3 Oeufs", l: "Poulet grillé + Légumes", d: "Salade verte uniquement" }
-            ]
+    <div id="auth-modal" class="hidden fixed inset-0 bg-black/95 flex items-center justify-center p-4 z-[100]">
+        <div class="bg-dark-800 border border-gold-500/50 p-8 rounded-3xl w-full max-w-sm">
+            <h3 class="text-2xl font-bold text-gold-500 mb-6 text-center italic">CONNEXION</h3>
+            <div class="space-y-4">
+                <input type="email" id="email" placeholder="Email" class="w-full bg-dark-700 border border-white/10 p-4 rounded-xl text-white outline-none focus:border-gold-500">
+                <input type="password" id="password" placeholder="Mot de passe" class="w-full bg-dark-700 border border-white/10 p-4 rounded-xl text-white outline-none focus:border-gold-500">
+                <button onclick="handleAuth('login')" class="w-full gold-gradient text-black font-bold py-4 rounded-xl uppercase tracking-widest">Entrer</button>
+                <button onclick="handleAuth('register')" class="w-full text-gray-500 text-sm hover:text-gold-500 transition">Pas de compte ? Créer un compte</button>
+                <button onclick="closeModal()" class="w-full text-red-500 text-xs mt-4 pt-4 border-t border-white/5 uppercase">Retour</button>
+            </div>
+        </div>
+    </div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+        import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+        import { getFirestore, collection, addDoc, query, where, orderBy, onSnapshot, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+        // Tes clés récupérées sur la photo
+        const firebaseConfig = {
+          apiKey: "AIzaSyDC-IWYd4JECre8Jt8PpSKuc-AiJzgUmhE",
+          authDomain: "adem-site.firebaseapp.com",
+          projectId: "adem-site",
+          storageBucket: "adem-site.firebasestorage.app",
+          messagingSenderId: "1048126642969",
+          appId: "1:1048126642969:web:00d7eff7d6aff58ee34388",
+          measurementId: "G-E609LWND73"
         };
 
-        function selectCategory(cat) {
-            currentCategory = cat;
-            document.getElementById('day-selector').classList.add('hidden');
-            document.getElementById('menu-display').classList.add('hidden');
-            document.getElementById('tab-recettes').classList.add('hidden');
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth();
+        const db = getFirestore();
 
-            ['cat-masse', 'cat-seche', 'cat-recettes'].forEach(id => {
-                document.getElementById(id).classList.remove('gold-gradient', 'text-black');
-            });
-
-            document.getElementById('cat-' + cat).classList.add('gold-gradient', 'text-black');
-
-            if (cat === 'recettes') {
-                document.getElementById('tab-recettes').classList.remove('hidden');
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                document.getElementById('login-btn').classList.add('hidden');
+                document.getElementById('login-msg').classList.add('hidden');
+                document.getElementById('user-display').classList.remove('hidden');
+                document.getElementById('tracker-section').classList.remove('hidden');
+                document.getElementById('user-email').innerText = user.email;
+                loadWeights(user.uid);
             } else {
-                document.getElementById('day-selector').classList.remove('hidden');
-                showDayMenu(0);
+                document.getElementById('login-btn').classList.remove('hidden');
+                document.getElementById('login-msg').classList.remove('hidden');
+                document.getElementById('user-display').classList.add('hidden');
+                document.getElementById('tracker-section').classList.add('hidden');
             }
-        }
+        });
 
-        function showDayMenu(dayIndex) {
-            const menu = diets[currentCategory][dayIndex];
-            document.getElementById('display-day-name').textContent = dayNames[dayIndex];
-            document.getElementById('breakfast-text').textContent = menu.b;
-            document.getElementById('lunch-text').textContent = menu.l;
-            document.getElementById('dinner-text').textContent = menu.d;
-            document.getElementById('menu-display').classList.remove('hidden');
+        window.handleAuth = async (type) => {
+            const email = document.getElementById('email').value;
+            const pass = document.getElementById('password').value;
+            if(!email || !pass) return alert("Remplis les champs !");
+            try {
+                if(type === 'register') await createUserWithEmailAndPassword(auth, email, pass);
+                else await signInWithEmailAndPassword(auth, email, pass);
+                closeModal();
+            } catch(e) { alert("Erreur : " + e.message); }
+        };
 
-            const btns = document.querySelectorAll('.day-btn');
-            btns.forEach((btn, i) => {
-                if(i === dayIndex) btn.classList.add('active-day');
-                else btn.classList.remove('active-day');
+        window.handleLogout = () => signOut(auth);
+
+        window.addWeight = async () => {
+            const val = document.getElementById('weight-input').value;
+            if(!val) return;
+            await addDoc(collection(db, "poids"), {
+                userId: auth.currentUser.uid,
+                valeur: val,
+                createdAt: serverTimestamp(),
+                dateStr: new Date().toLocaleDateString('fr-FR')
+            });
+            document.getElementById('weight-input').value = "";
+        };
+
+        function loadWeights(uid) {
+            const q = query(collection(db, "poids"), where("userId", "==", uid), orderBy("createdAt", "desc"));
+            onSnapshot(q, (snapshot) => {
+                const list = document.getElementById('weight-history');
+                list.innerHTML = "";
+                snapshot.forEach(doc => {
+                    const data = doc.data();
+                    list.innerHTML += `
+                        <div class="flex justify-between items-center bg-dark-700/50 p-4 rounded-xl border border-white/5">
+                            <span class="text-gray-500 font-mono text-sm">${data.dateStr || 'Maintenant'}</span>
+                            <span class="text-gold-500 font-bold text-lg">${data.valeur} kg</span>
+                        </div>`;
+                });
             });
         }
+
+        window.openModal = () => document.getElementById('auth-modal').classList.remove('hidden');
+        window.closeModal = () => document.getElementById('auth-modal').classList.add('hidden');
     </script>
 </body>
 </html>
