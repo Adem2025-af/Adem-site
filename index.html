@@ -1,211 +1,185 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="fr" dir="ltr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>بورباح جيم - مركز اللياقة والتغذية</title>
+    <title>BOURABAH GYM - Excellence Fitness</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <script>
         tailwind.config = {
             theme: {
                 extend: {
-                    colors: { emerald: { 500: '#10b981', 600: '#059669', 700: '#047857', 900: '#065f46' } },
-                    fontFamily: { 'cairo': ['Cairo', 'sans-serif'] }
+                    colors: {
+                        gold: { 400: '#fbbf24', 500: '#f59e0b', 600: '#d97706' },
+                        dark: { 900: '#050505', 800: '#0a0a0a', 700: '#171717' }
+                    },
+                    fontFamily: { 'title': ['Orbitron', 'sans-serif'], 'sans': ['Poppins', 'sans-serif'] }
                 }
             }
         }
     </script>
     <style>
         html { scroll-behavior: smooth; }
-        .diet-content.grid { display: grid !important; }
-        .exercise-img {
-            width: 100%;
-            max-height: 400px;
-            object-fit: cover;
-            border-radius: 1rem;
-            margin-top: 1rem;
-            border: 2px solid #10b981;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-        }
+        body { background-color: #050505; color: #f3f4f6; }
+        .gold-gradient { background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%); }
+        .card-gold { background: #111; border: 1px solid #262626; transition: 0.3s; }
+        .card-gold:hover { border-color: #f59e0b; box-shadow: 0 0 15px rgba(245, 158, 11, 0.1); }
+        .exercise-img { width: 100%; border-radius: 12px; border: 2px solid #f59e0b; margin-top: 10px; }
         .hidden { display: none !important; }
     </style>
 </head>
-<body class="bg-gray-900 text-gray-100 font-cairo">
+<body class="font-sans">
 
-    <nav class="sticky top-0 bg-gray-800/95 backdrop-blur-md shadow-xl z-50 border-b border-gray-700">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center py-4">
-            <h1 class="text-3xl font-bold text-emerald-500">بورباح جيم</h1>
+    <nav class="sticky top-0 bg-black/90 backdrop-blur-md border-b border-gold-600/30 z-50">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+            <h1 class="text-2xl font-title font-bold text-gold-500 tracking-tighter">BOURABAH GYM</h1>
             <div class="hidden md:flex space-x-8">
-                <a href="#nutrition" class="text-gray-300 hover:text-emerald-400">النظام الغذائي</a>
-                <a href="#bmi" class="text-gray-300 hover:text-emerald-400">BMI</a>
-                <a href="#workouts" class="text-gray-300 hover:text-emerald-400">برامج تدريب</a>
+                <a href="#nutrition" class="text-sm font-bold hover:text-gold-400 transition">NUTRITION</a>
+                <a href="#workouts" class="text-sm font-bold hover:text-gold-400 transition">ENTRAÎNEMENT</a>
+                <a href="#bmi" class="text-sm font-bold hover:text-gold-400 transition">IMC</a>
             </div>
         </div>
     </nav>
 
-    <section class="bg-gradient-to-b from-gray-800 to-gray-900 py-16 px-4 text-center">
-        <h2 class="text-5xl font-bold bg-gradient-to-r from-emerald-400 to-emerald-200 bg-clip-text text-transparent mb-6">بورباح جيم</h2>
-        <p class="text-xl text-gray-300">نظام غذائي متكامل وبرامج تدريبية احترافية</p>
+    <header class="py-24 text-center px-4 relative overflow-hidden">
+        <div class="absolute inset-0 opacity-10" style="background-image: radial-gradient(#f59e0b 1px, transparent 1px); background-size: 20px 20px;"></div>
+        <h2 class="text-6xl md:text-8xl font-title font-bold text-white mb-4 italic">BOURABAH <span class="text-gold-500">GYM</span></h2>
+        <p class="text-gray-400 max-w-2xl mx-auto text-lg">La science de la musculation au service de votre transformation.</p>
+    </header>
+
+    <section id="nutrition" class="py-16 px-4 max-w-7xl mx-auto">
+        <h2 class="text-4xl font-title text-center mb-12 uppercase text-gold-500">Programmes Nutritionnels</h2>
+        
+        <div class="flex justify-center gap-4 mb-12 flex-wrap">
+            <button onclick="switchTab('masse')" id="btn-masse" class="px-8 py-4 rounded-xl gold-gradient font-bold text-black shadow-lg">PRISE DE MASSE (7 JOURS)</button>
+            <button onclick="switchTab('seche')" id="btn-seche" class="px-8 py-4 rounded-xl bg-dark-700 border border-gold-500/50 font-bold hover:bg-gold-500 hover:text-black transition">SÈCHE ÉCO (7 JOURS)</button>
+            <button onclick="switchTab('recettes')" id="btn-recettes" class="px-8 py-4 rounded-xl bg-dark-700 border border-gold-500/50 font-bold hover:bg-gold-500 hover:text-black transition">10 RECETTES FIT</button>
+        </div>
+
+        <div id="tab-masse" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+            <div class="card-gold p-5 rounded-xl"><h4 class="text-gold-500 font-bold underline">Lundi</h4><p class="text-sm">Avoine/4 Oeufs • 150g Riz/Poulet • Lentilles/Pain complet</p></div>
+            <div class="card-gold p-5 rounded-xl"><h4 class="text-gold-500 font-bold underline">Mardi</h4><p class="text-sm">Porridge Banane • 150g Pâtes/Viande hachée • 4 Oeufs/Pdt</p></div>
+            <div class="card-gold p-5 rounded-xl"><h4 class="text-gold-500 font-bold underline">Mercredi</h4><p class="text-sm">Avoine/Miel • Couscous légumes/Poulet • Riz/2 Sardines</p></div>
+            <div class="card-gold p-5 rounded-xl"><h4 class="text-gold-500 font-bold underline">Jeudi</h4><p class="text-sm">4 Oeufs/Beurre cacahuète • Loubia (Haricots) • Pâtes/Dinde</p></div>
+            <div class="card-gold p-5 rounded-xl"><h4 class="text-gold-500 font-bold underline">Vendredi</h4><p class="text-sm">Avoine/Lait • Riz/Poisson blanc • Omelette/Salade</p></div>
+            <div class="card-gold p-5 rounded-xl"><h4 class="text-gold-500 font-bold underline">Samedi</h4><p class="text-sm">Pancakes Avoine • Burger Maison Fit • Riz/Lentilles</p></div>
+            <div class="card-gold p-5 rounded-xl"><h4 class="text-gold-500 font-bold underline">Dimanche</h4><p class="text-sm">Brunch Oeufs/Avocat • Repas libre modéré • Poulet/Légumes</p></div>
+            <div class="card-gold p-5 rounded-xl bg-gold-500/10"><h4 class="text-gold-500 font-bold italic">Note</h4><p class="text-xs text-gold-400">Buvez 3L d'eau par jour minimum.</p></div>
+        </div>
+
+        <div id="tab-seche" class="hidden grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+            <div class="card-gold p-5 rounded-xl"><h4 class="text-gray-400 font-bold underline">Lundi</h4><p class="text-sm">3 Oeufs • 60g Riz/Blanc poulet • Salade verte géante</p></div>
+            <div class="card-gold p-5 rounded-xl"><h4 class="text-gray-400 font-bold underline">Mardi</h4><p class="text-sm">60g Avoine/Eau • Poisson vapeur • Courgettes</p></div>
+            <div class="card-gold p-5 rounded-xl"><h4 class="text-gray-400 font-bold underline">Mercredi</h4><p class="text-sm">Omelette épinards • 100g Lentilles • Fromage blanc 0%</p></div>
+            <div class="card-gold p-5 rounded-xl"><h4 class="text-gray-400 font-bold underline">Jeudi</h4><p class="text-sm">Thon naturel/Salade • 150g Dinde • Brocolis</p></div>
+            <div class="card-gold p-5 rounded-xl"><h4 class="text-gray-400 font-bold underline">Vendredi</h4><p class="text-sm">2 Oeufs • Soupe de légumes maison • Blanc de dinde</p></div>
+            <div class="card-gold p-5 rounded-xl"><h4 class="text-gray-400 font-bold underline">Samedi</h4><p class="text-sm">60g Riz/Salade • Steak 5% • Haricots verts</p></div>
+            <div class="card-gold p-5 rounded-xl"><h4 class="text-gray-400 font-bold underline">Dimanche</h4><p class="text-sm">3 Oeufs • Poulet grillé • Thé vert sans sucre</p></div>
+        </div>
+
+        <div id="tab-recettes" class="hidden grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div class="card-gold p-6 rounded-2xl">
+                <h3 class="text-gold-500 font-bold mb-2">1. Le Porridge Bourabah</h3>
+                <p class="text-xs text-gray-400 italic">120g avoine, 4 oeufs, 1 banane, 20g beurre cacahuète.</p>
+            </div>
+            <div class="card-gold p-6 rounded-2xl">
+                <h3 class="text-gold-500 font-bold mb-2">2. L'Omelette Éco</h3>
+                <p class="text-xs text-gray-400 italic">3 oeufs, oignons, tomates, un peu de fromage de brebis.</p>
+            </div>
+            <div class="card-gold p-6 rounded-2xl">
+                <h3 class="text-gold-500 font-bold mb-2">3. Riz-Thon Muscu</h3>
+                <p class="text-xs text-gray-400 italic">Riz blanc, une boîte de thon, filet d'huile d'olive.</p>
+            </div>
+            <div class="card-gold p-6 rounded-2xl">
+                <h3 class="text-gold-500 font-bold mb-2">4. Poulet Curry Express</h3>
+                <p class="text-xs text-gray-400 italic">Blanc de poulet émincé, épices curry, yaourt nature.</p>
+            </div>
+            <div class="card-gold p-6 rounded-2xl">
+                <h3 class="text-gold-500 font-bold mb-2">5. Pâtes Complètes 5%</h3>
+                <p class="text-xs text-gray-400 italic">Pâtes, viande hachée 5%, sauce tomate basilic.</p>
+            </div>
+            <div class="card-gold p-6 rounded-2xl">
+                <h3 class="text-gold-500 font-bold mb-2">6. Bowl de Lentilles</h3>
+                <p class="text-xs text-gray-400 italic">Lentilles cuites, cumin, oeuf poché sur le dessus.</p>
+            </div>
+            <div class="card-gold p-6 rounded-2xl">
+                <h3 class="text-gold-500 font-bold mb-2">7. Sandwich Dinde Pro</h3>
+                <p class="text-xs text-gray-400 italic">Pain complet, tranches de dinde, moutarde, salade.</p>
+            </div>
+            <div class="card-gold p-6 rounded-2xl">
+                <h3 class="text-gold-500 font-bold mb-2">8. Sardines Power</h3>
+                <p class="text-xs text-gray-400 italic">Sardines à l'huile (égouttées), pain de seigle, citron.</p>
+            </div>
+            <div class="card-gold p-6 rounded-2xl">
+                <h3 class="text-gold-500 font-bold mb-2">9. Shake Avoine/Banane</h3>
+                <p class="text-xs text-gray-400 italic">Avoine mixé, lait, 1 banane, une pincée de cannelle.</p>
+            </div>
+            <div class="card-gold p-6 rounded-2xl">
+                <h3 class="text-gold-500 font-bold mb-2">10. Salade de Pois Chiches</h3>
+                <p class="text-xs text-gray-400 italic">Pois chiches, thon, oignon rouge, persil.</p>
+            </div>
+        </div>
     </section>
 
-    <section id="nutrition" class="py-20 px-4 bg-gray-800">
+    <section id="workouts" class="py-16 px-4 bg-dark-900 border-y border-white/5">
         <div class="max-w-6xl mx-auto">
-            <h2 class="text-4xl font-bold text-emerald-400 text-center mb-16 underline decoration-emerald-500/30">التغذية الاحترافية - Nutrition Pro</h2>
-            
-            <div class="flex justify-center mb-12 gap-4 flex-wrap">
-                <button onclick="showDiet('masse')" id="btn-masse" class="diet-btn bg-emerald-600 text-white py-4 px-8 rounded-2xl font-bold shadow-xl transition-all text-lg">Prise de Masse 3200kcal</button>
-                <button onclick="showDiet('seche')" id="btn-seche" class="diet-btn bg-gray-700 text-gray-300 py-4 px-8 rounded-2xl font-bold hover:bg-emerald-600 hover:text-white shadow-lg transition-all text-lg">Séchage 2000kcal</button>
-                <button onclick="showDiet('restaurant')" id="btn-restaurant" class="diet-btn bg-gray-700 text-gray-300 py-4 px-8 rounded-2xl font-bold hover:bg-emerald-600 hover:text-white shadow-lg transition-all text-lg">مطعم Fit Food</button>
-            </div>
-            
-            <div id="masse-tab" class="diet-content hidden grid-cols-1 md:grid-cols-3 gap-6">
-                <div class="bg-gray-700 p-6 rounded-3xl border-r-4 border-emerald-500">
-                    <h3 class="text-xl font-bold mb-2 text-emerald-400">Petit-déjeuner</h3>
-                    <p class="text-gray-200">120g شوفان • 4 بيض كامل • 1 موزة • 20g زبدة الفول السوداني</p>
-                </div>
-                <div class="bg-gray-700 p-6 rounded-3xl border-r-4 border-emerald-500">
-                    <h3 class="text-xl font-bold mb-2 text-emerald-400">Déjeuner</h3>
-                    <p class="text-gray-200">150g أرز • 200g صدر دجاج • 150g بروكلي • زيت زيتون</p>
-                </div>
-                <div class="bg-gray-700 p-6 rounded-3xl border-r-4 border-emerald-500">
-                    <h3 class="text-xl font-bold mb-2 text-emerald-400">Dîner</h3>
-                    <p class="text-gray-200">150g مكرونة كاملة • 150g لحم مفروم • سلطة مشكلة • أفوكادو</p>
-                </div>
-            </div>
-
-            <div id="seche-tab" class="diet-content hidden grid-cols-1 md:grid-cols-3 gap-6">
-                <div class="bg-green-900/20 p-6 rounded-3xl border-r-4 border-green-500">
-                    <h3 class="text-xl font-bold mb-2 text-green-400">Petit-déjeuner</h3>
-                    <p class="text-gray-200">60g شوفان • 3 بيض • قهوة سوداء</p>
-                </div>
-                <div class="bg-green-900/20 p-6 rounded-3xl border-r-4 border-green-500">
-                    <h3 class="text-xl font-bold mb-2 text-green-400">Déjeuner</h3>
-                    <p class="text-gray-200">80g عدس أو أرز • 150g سردين أو سمك • سلطة خضراء كبيرة</p>
-                </div>
-                <div class="bg-green-900/20 p-6 rounded-3xl border-r-4 border-green-500">
-                    <h3 class="text-xl font-bold mb-2 text-green-400">Dîner</h3>
-                    <p class="text-gray-200">200g صدر دجاج • خضروات مشوية • علبة زبادي طبيعي</p>
-                </div>
-            </div>
-
-            <div id="restaurant-tab" class="diet-content hidden grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                <div class="bg-gray-900 p-5 rounded-2xl border border-gray-700 hover:border-emerald-500">
-                    <h4 class="font-bold text-emerald-400 mb-1">1. L'Ogre Burger 🍔</h4>
-                    <p class="text-sm text-gray-300">150g ستيك 5%، خبز كامل، جبن لايت. (850 kcal)</p>
-                </div>
-                <div class="bg-gray-900 p-5 rounded-2xl border border-gray-700 hover:border-emerald-500">
-                    <h4 class="font-bold text-emerald-400 mb-1">2. Bowl Power 🥗</h4>
-                    <p class="text-sm text-gray-300">150g دجاج، 100g كينوا، خضروات موسمية. (650 kcal)</p>
-                </div>
-                <div class="bg-gray-900 p-5 rounded-2xl border border-gray-700 hover:border-emerald-500">
-                    <h4 class="font-bold text-emerald-400 mb-1">3. Salmon Fit 🐟</h4>
-                    <p class="text-sm text-gray-300">150g سلمون مشوي، بطاطا حلوة، هليون. (700 kcal)</p>
-                </div>
-                <div class="bg-gray-900 p-5 rounded-2xl border border-gray-700 hover:border-emerald-500">
-                    <h4 class="font-bold text-emerald-400 mb-1">4. Pasta Protein 🍝</h4>
-                    <p class="text-sm text-gray-300">مكرونة سمراء، صلصة طماطم منزلية، تونة. (600 kcal)</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="bmi" class="py-20 px-4 bg-gray-900">
-        <div class="max-w-md mx-auto bg-gray-800 p-10 rounded-3xl shadow-2xl">
-            <h2 class="text-2xl font-bold text-emerald-400 mb-6 text-center">حاسبة BMI</h2>
-            <input type="number" id="weight" placeholder="الوزن (كجم)" class="w-full p-4 bg-gray-700 rounded-xl mb-4 text-right outline-none border border-transparent focus:border-emerald-500">
-            <input type="number" id="height" placeholder="الطول (سم)" class="w-full p-4 bg-gray-700 rounded-xl mb-4 text-right outline-none border border-transparent focus:border-emerald-500">
-            <button onclick="calcBMI()" class="w-full bg-emerald-600 text-white py-4 rounded-xl font-bold">احسب الآن</button>
-            <div id="result" class="mt-8 p-6 bg-gray-700 rounded-xl text-center hidden">
-                <div id="bmi-value" class="text-3xl font-bold text-emerald-400"></div>
-                <div id="advice" class="mt-2 text-gray-300"></div>
-            </div>
-        </div>
-    </section>
-
-    <section id="workouts" class="py-20 px-4 bg-gray-800">
-        <div class="max-w-6xl mx-auto space-y-12">
-            <h2 class="text-4xl font-bold text-emerald-400 text-center mb-12">برامج تدريب</h2>
-            
-            <div class="bg-gray-700 p-8 rounded-3xl border border-gray-600">
-                <h3 class="text-3xl font-bold text-emerald-400 mb-6">Push/Pull/Legs (PPL)</h3>
-                <div onclick="toggleWorkouts(this)" class="cursor-pointer bg-emerald-600 text-white py-3 px-6 rounded-xl inline-block mb-4 hover:bg-emerald-700 shadow-lg">عرض التمارين بالصور</div>
-                <div class="hidden space-y-8 mt-4 border-t border-gray-600 pt-6">
-                    <div class="bg-gray-800 p-4 rounded-2xl">
-                        <h4 class="text-xl font-bold text-white mb-2">Push Day</h4>
-                        <img src="push.jpg" class="exercise-img" alt="Push">
-                    </div>
-                    <div class="bg-gray-800 p-4 rounded-2xl">
-                        <h4 class="text-xl font-bold text-white mb-2">Pull Day</h4>
-                        <img src="pull.jpg" class="exercise-img" alt="Pull">
-                    </div>
-                    <div class="bg-gray-800 p-4 rounded-2xl">
-                        <h4 class="text-xl font-bold text-white mb-2">Legs Day</h4>
-                        <img src="legs.jpg" class="exercise-img" alt="Legs">
+            <h2 class="text-4xl font-title text-center mb-12 text-gold-500">Programmes d'Entraînement</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="card-gold p-8 rounded-3xl">
+                    <h3 class="text-2xl font-bold mb-6 border-b border-gold-500/20 pb-2">PPL (Push/Pull/Legs)</h3>
+                    <div class="space-y-6">
+                        <div><p class="text-gold-500 font-bold">Push (Poussée)</p><img src="push.jpg" class="exercise-img"></div>
+                        <div><p class="text-gold-500 font-bold">Pull (Tirage)</p><img src="pull.jpg" class="exercise-img"></div>
+                        <div><p class="text-gold-500 font-bold">Legs (Jambes)</p><img src="legs.jpg" class="exercise-img"></div>
                     </div>
                 </div>
-            </div>
-
-            <div class="bg-gray-700 p-8 rounded-3xl border border-gray-600">
-                <h3 class="text-3xl font-bold text-emerald-400 mb-6">Classic Split (5 Days)</h3>
-                <div onclick="toggleWorkouts(this)" class="cursor-pointer bg-emerald-600 text-white py-3 px-6 rounded-xl inline-block mb-4 hover:bg-emerald-700 shadow-lg">عرض التمارين بالصور</div>
-                
-                <div class="hidden space-y-8 mt-4 border-t border-gray-600 pt-6">
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <div class="bg-gray-800 p-4 rounded-2xl">
-                            <h4 class="text-xl font-bold text-white mb-2 text-center">Séance Pectoraux (Pecs)</h4>
-                            <img src="pecs.jpg" class="exercise-img" alt="Pectoraux">
-                        </div>
-                        <div class="bg-gray-800 p-4 rounded-2xl">
-                            <h4 class="text-xl font-bold text-white mb-2 text-center">Séance Dos (Back)</h4>
-                            <img src="dos.jpg" class="exercise-img" alt="Dos">
-                        </div>
-                        <div class="bg-gray-800 p-4 rounded-2xl">
-                            <h4 class="text-xl font-bold text-white mb-2 text-center">Séance Épaules (Shoulders)</h4>
-                            <img src="epaules.jpg" class="exercise-img" alt="Epaules">
-                        </div>
-                        <div class="bg-gray-800 p-4 rounded-2xl">
-                            <h4 class="text-xl font-bold text-white mb-2 text-center">Séance Jambes (Legs)</h4>
-                            <img src="jambes.jpg" class="exercise-img" alt="Jambes">
-                        </div>
+                <div class="card-gold p-8 rounded-3xl">
+                    <h3 class="text-2xl font-bold mb-6 border-b border-gold-500/20 pb-2">Split 5 Jours Classic</h3>
+                    <div class="grid grid-cols-1 gap-6">
+                        <div><p class="text-gold-500 font-bold text-center uppercase">Pectoraux</p><img src="pecs.jpg" class="exercise-img"></div>
+                        <div><p class="text-gold-500 font-bold text-center uppercase">Dos</p><img src="dos.jpg" class="exercise-img"></div>
+                        <div><p class="text-gold-500 font-bold text-center uppercase">Épaules</p><img src="epaules.jpg" class="exercise-img"></div>
+                        <div><p class="text-gold-500 font-bold text-center uppercase">Jambes</p><img src="jambes.jpg" class="exercise-img"></div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
+
+    <section id="bmi" class="py-20 px-4 bg-black">
+        <div class="max-w-md mx-auto card-gold p-10 rounded-3xl shadow-2xl border-gold-500/50">
+            <h2 class="text-2xl font-title font-bold text-gold-500 mb-6 text-center italic">CALCULATEUR IMC</h2>
+            <input type="number" id="weight" placeholder="Poids (kg)" class="w-full p-4 bg-dark-900 rounded-xl mb-4 outline-none border border-gray-800 focus:border-gold-500 text-white">
+            <input type="number" id="height" placeholder="Taille (cm)" class="w-full p-4 bg-dark-900 rounded-xl mb-4 outline-none border border-gray-800 focus:border-gold-500 text-white">
+            <button onclick="calcBMI()" class="w-full gold-gradient text-black py-4 rounded-xl font-bold hover:scale-[1.02] transition">CALCULER</button>
+            <div id="result" class="mt-8 p-6 bg-dark-900 rounded-xl text-center hidden border border-gold-500/20">
+                <div id="bmi-value" class="text-4xl font-bold text-gold-500"></div>
+                <div id="advice" class="mt-2 text-gray-300 font-bold"></div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="py-12 text-center text-gray-600 border-t border-white/5">
+        <p class="font-title text-sm tracking-widest text-gold-600">© 2026 BOURABAH GYM • NO PAIN NO GAIN</p>
+    </footer>
 
     <script>
-        function showDiet(tab) {
-            const contents = document.querySelectorAll('.diet-content');
-            contents.forEach(c => {
-                c.classList.add('hidden');
-                c.classList.remove('grid');
+        function switchTab(tab) {
+            document.getElementById('tab-masse').classList.add('hidden');
+            document.getElementById('tab-seche').classList.add('hidden');
+            document.getElementById('tab-recettes').classList.add('hidden');
+            document.getElementById('tab-' + tab).classList.remove('hidden');
+
+            const btns = ['btn-masse', 'btn-seche', 'btn-recettes'];
+            btns.forEach(id => {
+                document.getElementById(id).classList.remove('gold-gradient', 'text-black');
+                document.getElementById(id).classList.add('bg-dark-700', 'text-white');
             });
-
-            const buttons = document.querySelectorAll('.diet-btn');
-            buttons.forEach(b => {
-                b.style.backgroundColor = '#374151'; 
-                b.style.color = '#d1d5db'; 
-            });
-
-            const activeTab = document.getElementById(tab + '-tab');
-            if(activeTab) {
-                activeTab.classList.remove('hidden');
-                activeTab.classList.add('grid');
-            }
-
+            
             const activeBtn = document.getElementById('btn-' + tab);
-            if(activeBtn) {
-                activeBtn.style.backgroundColor = '#059669'; 
-                activeBtn.style.color = '#ffffff'; 
-            }
-        }
-
-        function toggleWorkouts(element) {
-            const content = element.nextElementSibling;
-            content.classList.toggle('hidden');
-            element.textContent = content.classList.contains('hidden') ? "عرض التمارين بالصور" : "إخفاء التمارين";
+            activeBtn.classList.remove('bg-dark-700', 'text-white');
+            activeBtn.classList.add('gold-gradient', 'text-black');
         }
 
         function calcBMI() {
@@ -216,14 +190,10 @@
             document.getElementById('result').classList.remove('hidden');
             document.getElementById('bmi-value').textContent = bmi;
             const advice = document.getElementById('advice');
-            if (bmi < 18.5) advice.innerHTML = "تحتاج لزيادة السعرات (تضخيم)";
-            else if (bmi < 25) advice.innerHTML = "وزنك مثالي، واصل التمرين ✅";
-            else advice.innerHTML = "تحتاج لتعديل نظامك الغذائي (تنشيف)";
+            if (bmi < 18.5) advice.innerHTML = "PRISE DE MASSE NÉCESSAIRE";
+            else if (bmi < 25) advice.innerHTML = "POIDS IDÉAL ✅";
+            else advice.innerHTML = "SÈCHE CONSEILLÉE";
         }
-
-        window.onload = function() {
-            showDiet('masse');
-        };
     </script>
 </body>
 </html>
